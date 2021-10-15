@@ -42,9 +42,9 @@ CREATE TABLE a_admins
   PRIMARY KEY (username)
 );
 
-INSERT into a_admins VALUES
-('admin@gmail.com', 'admin', 'admin'),
-('root@gmail.com', 'root', 'root')
-;
+-- INSERT into a_admins VALUES
+-- ('admin@gmail.com', 'admin', 'admin'),
+-- ('root@gmail.com', 'root', 'root')
+-- ;
 
-select * from a_admins;
+-- select * from a_admins;

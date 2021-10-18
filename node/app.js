@@ -99,7 +99,7 @@ app.post('/admin/login', urlencodedParser, (req, res) => {
 				}
 			} else {
 				console.log('No');
-				return res.redirect('/login');
+				return res.redirect('/admin/login');
 			}
 		}
 	});

@@ -5,10 +5,6 @@
 
 <!-- PROJECT LOGO -->
 
-<p align="center">
-  <a href="https://github.com/radonintro1234/Digital-Badge">
-    <img src="" alt="Logo" width="80" height="80">
-  </a>
 
   <h3 align="center">Digital Badge Portal</h3>
 

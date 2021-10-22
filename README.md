@@ -84,8 +84,6 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 
 ## Getting Started
 
-<br>
-
 ### Prerequisites
 
 - npm

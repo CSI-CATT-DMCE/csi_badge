@@ -69,7 +69,7 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
   
 ### Homepage
   <p class="align-center">
-  <img src="./Screenshots/Home/Home Page.png">
+  <img src="./Screenshots/Home/Home Page2.png">
   </p>
 
 
@@ -86,8 +86,6 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 <!-- GETTING STARTED -->
 
 ## Getting Started
-
-<br>
 
 ### Prerequisites
 

@@ -1,7 +1,11 @@
-[![Forks][forks-shield]]
-[![Stargazers][stars-shield]]
-[![Issues][issues-shield]]
-[![MIT License][license-shield]]
+
+
+<p align="center">
+   <img src="https://img.shields.io/github/forks/CSI-CATT-DMCE/csi_badge" />
+  <img src="https://img.shields.io/github/stars/CSI-CATT-DMCE/csi_badge" />
+  <img src="https://img.shields.io/github/issues/CSI-CATT-DMCE/csi_badge" />
+  <img src="https://img.shields.io/github/license/CSI-CATT-DMCE/csi_badge" />
+</p>
 
 <!-- PROJECT LOGO -->
 

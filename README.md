@@ -160,10 +160,12 @@ Contributions are what make the open source community such an amazing place to l
 5. Open a Pull Request
 
 <!-- LICENSE -->
-
+MIT
 
 <!-- CONTACT -->
+## Maintainers
 
+Rishi Mule - [radonintro1234](https://github.com/radonintro1234)
 
 <!-- ACKNOWLEDGEMENTS -->
 

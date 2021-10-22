@@ -66,7 +66,7 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 - The system is used to track performance of the students.
   
   <p class="align-center">
-  <img src="./Screenshots/Home/Home Page.png">
+  <img src="./Screenshots/Home/Home Page2.png">
   </p>
 
 

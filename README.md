@@ -168,11 +168,11 @@ Contributions are what make the open source community such an amazing place to l
 
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 
-[forks-shield]: https://img.shields.io/github/forks/radonintro1234/Stock-Management-System
+[forks-shield]: https://img.shields.io/github/forks/CSI-CATT-DMCE/csi_badge
 
-[stars-shield]: https://img.shields.io/github/stars/radonintro1234/Stock-Management-System
+[stars-shield]: https://img.shields.io/github/stars/CSI-CATT-DMCE/csi_badge
 
-[issues-shield]: https://img.shields.io/github/issues/radonintro1234/Stock-Management-System
+[issues-shield]: https://img.shields.io/github/issues/CSI-CATT-DMCE/csi_badge
 
 [license-shield]: https://img.shields.io/github/license/radonintro1234/Stock-Management-System
 

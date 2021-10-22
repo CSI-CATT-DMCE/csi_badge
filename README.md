@@ -15,12 +15,12 @@
   <p align="center">
     A Digital Badge Portal using Node js  and MySQL database.
     <br />
-    <a href="https://github.com/radonintro1234/Digital-Badge-Portal"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/CSI-CATT-DMCE/csi_badge/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/radonintro1234/Digital-Badge-Portal/issues">Report Bug</a>
+    <a href="https://github.com/CSI-CATT-DMCE/csi_badge/issues">Report Bug</a>
     ·
-    <a href="https://github.com/radonintro1234//pulls">Request Feature</a>
+    <a href="https://github.com/CSI-CATT-DMCE/csi_badge/pulls">Request Feature</a>
   </p>
 </p>
 
@@ -41,8 +41,10 @@
         <li><a href="#run-server">Run Server</a></li>
       </ul>
     </li>
+    <li><a href="#homepage">Screenshot of homepage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#github-contribution-rules">Github Contribution Rules</a></li>
+    <li><a href="#maintainers">Maintainers</a></li>
 
   
 
@@ -65,6 +67,7 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 
 - The system is used to track performance of the students.
   
+### Homepage
   <p class="align-center">
   <img src="./Screenshots/Home/Home Page.png">
   </p>
@@ -154,7 +157,7 @@ See the [open issues](https://github.com/CSI-CATT-DMCE/csi_badge/issues) for a l
 <!-- CONTRIBUTING -->
 
 
-## Github Contribution Rules
+## Github-Contribution-Rules
 
 * Pull requests can be submitted to any opted-in repository on GitHub or GitLab.
 * The pull request must contain commits you made yourself.

@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 
 
-  <h3 align="center">Digital Badge Portal</h3>
+  <h3 align="center">CSI Badge Portal</h3>
 
   <p align="center">
     A Digital Badge Portal using Node js  and MySQL database.
@@ -64,6 +64,10 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 - The system itself updates the leaderboard as per user's performance.
 
 - The system is used to track performance of the students.
+  
+  <p class="align-center">
+  <img src="./Screenshots/Home/Home Page2.png">
+  </p>
 
 
 ### Built With
@@ -149,24 +153,34 @@ See the [open issues](https://github.com/CSI-CATT-DMCE/csi_badge/issues) for a l
 
 <!-- CONTRIBUTING -->
 
-## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+## Github Contribution Rules
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+* Pull requests can be submitted to any opted-in repository on GitHub or GitLab.
+* The pull request must contain commits you made yourself.
+* If a maintainer reports your pull request as spam, it will not be counted toward your participation in Hacktoberfest.
+* If a maintainer reports behavior that’s not in line with the project’s code of conduct, you will be ineligible to participate.
+* To get a shirt, you must make four approved pull requests (PRs) on opted-in projects between October 1-31 in any time zone.
+* This year, the first 50, 000 participants can earn a T-shirt.
 
+---
+
+Steps for adding your name below
+
+    1. Fork this repo
+    2. Edit `CONTRIBUTERS.md` file
+    3. Add your Name also link your github profile
+    4. Make pull request
 <!-- LICENSE -->
+## LICENSE
 MIT
 
 <!-- CONTACT -->
 ## Maintainers
 
 Rishi Mule - [radonintro1234](https://github.com/radonintro1234)
-
+<br>
+Yash Nerkar - [yash-png](https://github.com/yash-png)
 <!-- ACKNOWLEDGEMENTS -->
 
 <!-- MARKDOWN LINKS & IMAGES -->

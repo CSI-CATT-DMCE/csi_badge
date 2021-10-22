@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 
 
-  <h3 align="center">CSI Badge Portal</h3>
+  <h3 align="center">CSI Badges Portal</h3>
 
   <p align="center">
     A Digital Badge Portal using Node js  and MySQL database.

@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const exphbs  = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const { appendFileSync } = require('fs');
 const app = express();
 const mysql = require('mysql');

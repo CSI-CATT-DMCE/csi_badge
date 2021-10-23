@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const exphbs  = require('express-handlebars');
 const { appendFileSync } = require('fs');
 const app = express();
 const mysql = require('mysql');
@@ -18,7 +19,9 @@ const fs = require('fs');
 
 // app.set('view engine', 'ejs');
 
+app.engine('hbs', exphbs({ defaultLayout: false, extname: '.hbs' }));
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, '/views'));
 app.use(express.static('images/avatar'));
 app.use(express.static('images/badges'));
 

@@ -5,6 +5,7 @@ function getUsers() {
     var connection = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
+        password: process.env.DB_PASS,
         database: process.env.DB_name
     });
 
@@ -25,6 +26,7 @@ function getEvents() {
     var connection = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
+        password: process.env.DB_PASS,
         database: process.env.DB_name
     });
 
@@ -43,6 +45,7 @@ function getAdmins() {
     var connection = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
+        password: process.env.DB_PASS,
         database: process.env.DB_name
     });
 
@@ -73,6 +76,7 @@ function insertToEvents(insertdata) {
     var connection = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
+        password: process.env.DB_PASS,
         database: process.env.DB_name
     });
 
@@ -95,7 +99,7 @@ function insertToUsers(insertdata) {
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
-        database: process.env.DB_name,
+        database: process.env.DB_name
     });
 
     var end_result = connection.query('INSERT INTO u_users SET ?', insertdata, function(

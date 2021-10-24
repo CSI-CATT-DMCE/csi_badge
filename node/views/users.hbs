@@ -1,92 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+{{#unless x}}
 
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-			crossorigin="anonymous"
-		/>
-		<link
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-			rel="stylesheet"
-		/>
+<div class="jumbotron jumbotron-fluid" style="margin-bottom: 0;">
+	<div class="container">
+		<form action="/users/" method="post" name="getuser">
+			<select name="users" class="custom-select" id="inputGroupSelect01">
+				{{#each user}}
+				<option value="{{this.u_id}}">{{this.name}}-({{this.email}})</option>
+				{{/each}}
+			</select>
 
-		<title>Users</title>
-	</head>
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
+	</div>
+</div>
 
-	<body>
-		{{#unless x}}
+{{/unless}}
 
-		<div class="jumbotron jumbotron-fluid" style="margin-bottom: 0;">
-			<div class="container">
-				<form action="/users/" method="post" name="getuser">
-					<select name="users" class="custom-select" id="inputGroupSelect01">
-						{{#each user}}
-						<option value="{{this.u_id}}">{{this.name}}-({{this.email}})</option>
-						{{/each}}
-					</select>
+<br />
 
-					<button type="submit" class="btn btn-primary">Search</button>
-				</form>
+{{#if x}}
+
+<div class="container-fluid">
+	<div class="container d-flex justify-content-center border border-dark">
+		<img src="/{{y}}" class="rounded-circle border border-dark img-fluid" alt="" height="150" width="140" />
+	</div>
+	<div class="container border border-dark text-center">
+		<p>{{z}}</p>
+	</div>
+	<!-- badges div started -->
+	<div class="container-fluid mt-5">
+		<div class="row">
+			{{#each x}}
+			<div class="container border border-dark col-md-4 mt-4">
+
+				{{#unless this.badge_link}}
+				<p>No certificates are there!</p>
+				{{/unless}}
+
+				<img class="img-fluid p-3" src="/{{this.badge_link}}" alt="{{this.event_name}}" />
 			</div>
+			{{/each}}
 		</div>
+	</div>
+</div>
 
-		{{/unless}}
-
-		<br />
-
-		{{#if x}}
-
-		<div class="container-fluid">
-			<div class="container d-flex justify-content-center border border-dark">
-				<img
-					src="/{{y}}"
-					class="rounded-circle border border-dark img-fluid"
-					alt=""
-					height="150"
-					width="140"
-				/>
-			</div>
-			<div class="container border border-dark text-center">
-				<p>{{z}}</p>
-			</div>
-			<!-- badges div started -->
-			<div class="container-fluid mt-5">
-				<div class="row">
-					{{#each x}}
-					<div class="container border border-dark col-md-4 mt-4">
-						
-						{{#unless this.badge_link}}
-						<p>No certificates are there!</p>
-						{{/unless}}
-						
-						<img
-							class="img-fluid p-3"
-							src="/{{this.badge_link}}"
-							alt="{{this.event_name}}"
-						/>
-					</div>
-					{{/each}}
-				</div>
-			</div>
-		</div>
-
-		{{/if}}
-
-		<script
-			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-			crossorigin="anonymous"
-		></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-			crossorigin="anonymous"
-		></script>
-	</body>
-</html>
+{{/if}}

@@ -1,80 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
-
-    <title>Events</title>
-</head>
-
-<body>
-    <div class="jumbotron jumbotron-fluid" style="margin-bottom: 0;">
-        <div class="container">
-            <p class="lead text-center title">Nothing is impossible.</p>
-        </div>
+<div class="jumbotron jumbotron-fluid" style="margin-bottom: 0;">
+    <div class="container">
+        <p class="lead text-center title">Nothing is impossible.</p>
     </div>
+</div>
+<div class="container-fluid border border-dark">
     <div class="container-fluid border border-dark">
-        <div class="container-fluid border border-dark">
-            <h3>Add Events</h3>
-            <div class="container border border-dark d-flex justify-content-center pt-5">
-                <form action="/registerevents" method="POST" enctype="multipart/form-data" class="container w-75">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Event Name</span>
-                        </div>
-                        <input type="text" class="form-control" name="name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <h3>Add Events</h3>
+        <div class="container border border-dark d-flex justify-content-center pt-5">
+            <form action="/registerevents" method="POST" enctype="multipart/form-data" class="container w-75">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Event Name</span>
                     </div>
+                    <input type="text" class="form-control" name="name" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
 
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Short Description</span>
-                        </div>
-                        <input type="text" class="form-control" name="short_description" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Short Description</span>
                     </div>
+                    <input type="text" class="form-control" name="short_description" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Description</span>
-                        </div>
-                        <textarea class="form-control" name="description" id="description" aria-label="With textarea" placeholder="Description limit upto 1000 characters"></textarea>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Description</span>
                     </div>
+                    <textarea class="form-control" name="description" id="description" aria-label="With textarea"
+                        placeholder="Description limit upto 1000 characters"></textarea>
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Date</span>
-                        </div>
-                        <input type="date" class="form-control" name="date" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Date</span>
                     </div>
-						
-						  <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="badge">
-  </div>
-					
-					<button class="btn btn-primary" type="submit">Submit</button>
-                    
-                </form>
-            </diV>
-        </div>
+                    <input type="date" class="form-control" name="date" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
 
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Example file input</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="badge">
+                </div>
 
+                <button class="btn btn-primary" type="submit">Submit</button>
 
+            </form>
+        </diV>
+    </div>
+</div>
 
-
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns " crossorigin="anonymous "></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-        <script>
-            gsap.from('.title', 1.5, {
-                y: "100%",
-                ease: Power4.easeOut
-            })
-        </script>
-</body>
-
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+<script>
+    gsap.from('.title', 1.5, {
+        y: "100%",
+        ease: Power4.easeOut
+    })
+</script>

@@ -8,6 +8,7 @@ const mysql = require('mysql');
 const port = 3000;
 const path = require('path');
 const hbs = require('hbs');
+const hbsHelpers = require('handlebars-helpers');
 const multer = require('multer');
 const queries = require('./sqlFun/queries');
 const bodyParser = require('body-parser');
@@ -19,11 +20,12 @@ const fs = require('fs');
 
 // app.set('view engine', 'ejs');
 
-app.engine('hbs', exphbs({ defaultLayout: false, extname: '.hbs' }));
+app.engine('hbs', exphbs({ extname: '.hbs', helpers: hbsHelpers() }));
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('images/avatar'));
 app.use(express.static('images/badges'));
+app.use(express.static(path.join(__dirname, 'stylesheets')));
 
 
 
@@ -79,7 +81,7 @@ app.get('/', async(req, res, next) => {
 });
 
 app.get('/admin/login', (req, res) => {
-    res.render('login');
+    res.render('login', { title: 'Admin login' });
 });
 
 app.post('/admin/login', urlencodedParser, (req, res) => {
@@ -117,7 +119,7 @@ app.get('/admin', (req, res) => {
 
 
 app.get('/registeruser', (req, res) => {
-    res.render('registeruser');
+    res.render('registeruser', { title: 'User' });
 });
 const userupload = multer({
     dest: 'images/avatar'
@@ -152,7 +154,7 @@ app.post('/registeruser', userupload.single('avatar'), urlencodedParser, (req, r
 });
 
 app.get('/registerevents', (req, res) => {
-    res.render('registerevents');
+    res.render('registerevents', { title: 'Events' });
 });
 const upload = multer({
     dest: 'images/badges',
@@ -250,7 +252,7 @@ app.get('/certificates', async(req, res) => {
     await connection.query('SELECT * from e_events', function(error, results, fields) {
         if (error) throw error;
         answer = results;
-        res.render('certificate', { events: answer });
+        res.render('certificates', { events: answer });
     });
 
     connection.end();

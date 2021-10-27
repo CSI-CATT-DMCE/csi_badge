@@ -1,75 +1,109 @@
-<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="/css/registeruser.css" />
 
     <title>User</title>
+
   </head>
   <body>
-    <div class="jumbotron jumbotron-fluid" style="margin-bottom:0">
-     <div class="container">
-    <p class="lead text-center">Nothing is impossible.</p>
-   
-  </div>
+    <img src="/images/Ellipse4.png" type="image" alt="" id="el4" />
+    <img src="/images/Ellipse5.png" type="image" alt="" id="el5" />
+    <img
+      src="/images/Ellipse6.png"
+      type="image"
+      alt=""
+      id="el6"
+      class="img-fluid"
+    />
 
+    <div
+      class="container-fluid text-center pt-4 pt-xl-5"
+      style="position: relative;"
+    >
+      <h1>ADD USER</h1>
+      <div class="container text-left mt-4 p-4 shadow">
+        <form
+          class="m-0 mt-3"
+          action="/registeruser"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="text1"
+              name="name"
+              placeholder="Name"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text2"
+              class="form-control"
+              id="exampleInputPassword1"
+              name="email"
+              placeholder="Email"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              name="gr_no"
+              placeholder="GR No."
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="tel"
+              class="form-control"
+              name="year"
+              placeholder="Year"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="file"
+              class="file form-control"
+              id="exampleInputPassword1"
+              name="avatar"
+              placeholder="Add Avatar"
+            />
+          </div>
+          <div
+            class="d-flex align-item-center justify-contenet-center mt-4 mb-2"
+          >
+            <button type="submit" class="subbtn my-2">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="container-fluid border border-dark">
-            <div class="container-fluid border border-dark ">
-                <h3>Add user</h3>
-              <div class="container border d-flex justify-content-center pt-5">
-              
-                <form action="/registeruser" method="POST" enctype="multipart/form-data" class="container w-75 ">
-                  <div class="form-group row">
-                    <!-- <label for="text1" class="col-4 col-form-label">Name</label>  -->
-                    <div class="col-8">
-                      <input id="text1" name="name" type="text" class="form-control" placeholder=" name">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <!-- <label for="text2" class="col-4 col-form-label">Email</label>  -->
-                    <div class="col-8">
-                      <input id="text2" name="email" type="email" class="form-control" placeholder="email">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <!-- <label for="text3" class="col-4 col-form-label">STUDENT ID</label>  -->
-                    <div class="col-8">
-                      <input id="text3" name="gr_no" type="text" class="form-control" placeholder="gr_no">
-                    </div>
-                  </div>
-				   <div class="form-group row">
-                    <!-- <label for="text3" class="col-4 col-form-label">year</label>  -->
-                    <div class="col-8">
-                      <input id="text3" name="year" type="text" class="form-control" placeholder="year">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <!-- <label for="text4" class="col-4 col-form-label">Avatar<label>  -->
-                    <div class="col-8">
-                      <input id="text4" name="avatar" type="file" class="form-control" placeholder = "add avatar">
-                    </div>
-                  </div>
-                
-                  <div class="form-group row">
-                    <div class="col-8">
-                      <button  type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-                
-            </div>
-            
-    </div>
 
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
 
-  
   </body>
 </html>

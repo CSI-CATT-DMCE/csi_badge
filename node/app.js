@@ -22,6 +22,8 @@ const fs = require('fs');
 app.engine('hbs', exphbs({ defaultLayout: false, extname: '.hbs' }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/views'));
+app.use(express.static(__dirname + '/public'));
+app.use(express.static('images/assets'))
 app.use(express.static('images/avatar'));
 app.use(express.static('images/badges'));
 
@@ -30,7 +32,7 @@ app.use(express.static('images/badges'));
 console.log(process.env.DB_HOST);
 
 
-app.get('/', async(req, res, next) => {
+app.get('/', async (req, res, next) => {
     // leaderboard start
     var connection = mysql.createConnection({
         host: process.env.DB_HOST,
@@ -42,7 +44,7 @@ app.get('/', async(req, res, next) => {
     var q =
         'SELECT c.u_id, u.name, count(*) as c_count from c_certificates as c INNER JOIN u_users as u on u.u_id = c.u_id GROUP BY c.u_id ORDER BY 3 DESC Limit 5;';
 
-    connection.query(q, async function(error, results, fields) {
+    connection.query(q, async function (error, results, fields) {
         if (error) throw error;
         var userdetails = results;
 
@@ -54,7 +56,7 @@ app.get('/', async(req, res, next) => {
         });
         var q2 =
             'SELECT e.name as event_name, e.badges as badge_link, DATE_FORMAT(e.date, "%d %b %Y") as event_date, e.description as event_description, e.short_description as event_short_description from e_events as e where e.date >= CURRENT_DATE;';
-        connection2.query(q2, function(error, results1, fields) {
+        connection2.query(q2, function (error, results1, fields) {
             if (error) throw error;
             var upcomingeventdetails = results1;
             console.log(upcomingeventdetails);
@@ -91,7 +93,7 @@ app.post('/admin/login', urlencodedParser, (req, res) => {
         database: process.env.DB_name
     });
     var answer;
-    connection.query('SELECT * from a_admins', function(error, results, fields) {
+    connection.query('SELECT * from a_admins', function (error, results, fields) {
         if (error) throw error;
         for (var i = 0; i < results.length; i++) {
             if (results[i].username === data.email) {
@@ -121,14 +123,14 @@ app.get('/registeruser', (req, res) => {
 });
 const userupload = multer({
     dest: 'images/avatar'
-        // 	add limit
+    // 	add limit
 
 });
 app.post('/registeruser', userupload.single('avatar'), urlencodedParser, (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     console.log(data);
 
-    fs.rename('images/avatar/' + req.file.filename, 'images/avatar/' + req.file.filename + '.png', function(
+    fs.rename('images/avatar/' + req.file.filename, 'images/avatar/' + req.file.filename + '.png', function (
         err
     ) {
         if (err) console.log('ERROR: ' + err);
@@ -158,7 +160,7 @@ const upload = multer({
     dest: 'images/badges',
 });
 
-app.post('/registerevents', upload.single('badge'), urlencodedParser, async(req, res) => {
+app.post('/registerevents', upload.single('badge'), urlencodedParser, async (req, res) => {
     console.log('Helo');
     const data = JSON.parse(JSON.stringify(req.body));
     console.log(data);
@@ -167,7 +169,7 @@ app.post('/registerevents', upload.single('badge'), urlencodedParser, async(req,
     fs.rename(
         'images/badges/' + req.file.filename,
         'images/badges/' + req.file.filename + '.png',
-        function(err) {
+        function (err) {
             if (err) console.log('ERROR: ' + err);
         }
     );
@@ -195,7 +197,7 @@ app.get('/users', (req, res) => {
     });
 
     var answer;
-    connection.query('SELECT * from u_users', function(error, results) {
+    connection.query('SELECT * from u_users', function (error, results) {
         if (error) {
             throw error;
         } else {
@@ -223,7 +225,7 @@ app.post('/users', urlencodedParser, (req, res) => {
     var q =
         'SELECT u.u_id as u_id, u.avatar as avatar,u.name as username,  e.name as event_name, e.badges as badge_link from u_users as u LEFT JOIN c_certificates as c on c.u_id = u.u_id LEFT JOIN e_events as e on e.e_id = c.e_id where u.u_id = ? ';
 
-    connection.query(q, userId, function(error, results, fields) {
+    connection.query(q, userId, function (error, results, fields) {
         if (error) {
             console.log('User not found');
         } else {
@@ -238,7 +240,7 @@ app.post('/users', urlencodedParser, (req, res) => {
 
 });
 
-app.get('/certificates', async(req, res) => {
+app.get('/certificates', async (req, res) => {
     var connection = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
@@ -247,7 +249,7 @@ app.get('/certificates', async(req, res) => {
     });
 
     var answer;
-    await connection.query('SELECT * from e_events', function(error, results, fields) {
+    await connection.query('SELECT * from e_events', function (error, results, fields) {
         if (error) throw error;
         answer = results;
         res.render('certificate', { events: answer });

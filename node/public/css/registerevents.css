@@ -1,0 +1,71 @@
+.container {
+  background: rgb(179, 56, 250);
+  background: linear-gradient(
+    180deg,
+    rgba(179, 56, 250, 1) 12%,
+    rgba(130, 36, 207, 1) 58%,
+    rgba(67, 11, 151, 1) 100%
+  );
+  border-radius: 15px;
+  max-width: 500px;
+  z-index: 5;
+}
+.form-group input,.form-floating textarea {
+  border-radius: 15px;
+  border: 0px;
+  padding: 15px 15px;
+  box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.308);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.form-control {
+  height: auto !important;
+}
+::placeholder {
+  font-weight: 400;
+}
+input[type="file"]::file-selector-button {
+  border: 2px solid #6740ab;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.2em;
+  background-color: #6740ab;
+  transition: 0.2s;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+input[type="file"]::file-selector-button:hover {
+  background-color: #411b83;
+  border: 2px solid #411b83;
+}
+.subbtn {
+  border: 0;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 8px 50px;
+  margin: 0 auto;
+  box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.308);
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+.subbtn:hover {
+  filter: brightness(0.9);
+}
+#el4,
+#el5,
+#el6 {
+  position: fixed;
+  z-index: -10;
+}
+#el6 {
+  top: -2rem;
+  left: 17rem;
+}
+#el5 {
+  top: 2rem;
+  right: 25rem;
+}
+#el4 {
+  bottom: -2rem;
+  left: 20rem;
+}

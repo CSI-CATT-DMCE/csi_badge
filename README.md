@@ -70,7 +70,8 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 ### UI DESIGN
 <br>
 Tanaya Raikwar - [tanaya1812](https://github.com/tanaya1812)
-## Homepage
+<br>
+### Homepage
   <p class="align-center">
   <img src="./Screenshots/Home/Home Page2.png">
   </p>

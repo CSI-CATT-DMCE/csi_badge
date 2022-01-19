@@ -71,7 +71,7 @@ So, “The Main Aim of this project is to reduce the stress of tracking by Subst
 <br>
 Tanaya Raikwar - [tanaya1812](https://github.com/tanaya1812)
 <br>
-### Homepage
+<strong>Homepage</strong>
   <p class="align-center">
   <img src="./Screenshots/Home/Home Page2.png">
   </p>

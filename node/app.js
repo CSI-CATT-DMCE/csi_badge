@@ -29,7 +29,7 @@ app.use(express.static('images/badges'));
 
 
 
-console.log(process.env.DB_HOST);
+// console.log(process.env.DB_HOST);
 
 
 app.get('/', async (req, res, next) => {

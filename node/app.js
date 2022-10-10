@@ -14,6 +14,8 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
 const fs = require('fs');
+
+const connectDB = require("./utils/db")
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
@@ -296,4 +298,5 @@ app.post('/certificates', urlencodedParser, (req, res) => {
 
 app.listen(port, (req, res) => {
     console.log('Server is listening on port' + port);
+    connectDB()
 });

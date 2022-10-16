@@ -1,299 +1,316 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const exphbs = require('express-handlebars');
-const { appendFileSync } = require('fs');
+const express = require("express");
+const exphbs = require("express-handlebars");
+const { appendFileSync } = require("fs");
 const app = express();
-const mysql = require('mysql');
+// const mysql = require("mysql");
 const port = 3000;
-const path = require('path');
-const hbs = require('hbs');
-const multer = require('multer');
-const queries = require('./sqlFun/queries');
-const bodyParser = require('body-parser');
+const path = require("path");
+const hbs = require("hbs");
+const multer = require("multer");
+const queries = require("./sqlFun/queries");
+const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
-const fs = require('fs');
+const fs = require("fs");
+const mongoose = require("mongoose");
+const Admin = require("./schema/AdminSchema");
+const User = require("./schema/UserSchema");
+const Certificate = require("./schema/CertificateSchema");
+const Event = require("./schema/EventSchema");
+const async = require("hbs/lib/async");
+
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
 // app.set('view engine', 'ejs');
 
-app.engine('hbs', exphbs({ defaultLayout: false, extname: '.hbs' }));
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, '/views'));
-app.use(express.static(__dirname + '/public'));
-app.use(express.static('images/assets'))
-app.use(express.static('images/avatar'));
-app.use(express.static('images/badges'));
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to Database"))
+  .catch(() => console.log("Error Connecting to Database"));
 
-
+app.engine("hbs", exphbs({ defaultLayout: false, extname: ".hbs" }));
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "/views"));
+app.use(express.static(__dirname + "/public"));
+app.use(express.static("images/assets"));
+app.use(express.static("images/avatar"));
+app.use(express.static("images/badges"));
 
 // console.log(process.env.DB_HOST);
 
-
-app.get('/', async (req, res, next) => {
-    // leaderboard start
-    var connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_name,
-    });
-
-    var q =
-        'SELECT c.u_id, u.name, count(*) as c_count from c_certificates as c INNER JOIN u_users as u on u.u_id = c.u_id GROUP BY c.u_id ORDER BY 3 DESC Limit 5;';
-
-    connection.query(q, async function (error, results, fields) {
-        if (error) throw error;
-        var userdetails = results;
-
-        var connection2 = mysql.createConnection({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_name,
-        });
-        var q2 =
-            'SELECT e.name as event_name, e.badges as badge_link, DATE_FORMAT(e.date, "%d %b %Y") as event_date, e.description as event_description, e.short_description as event_short_description from e_events as e where e.date >= CURRENT_DATE;';
-        connection2.query(q2, function (error, results1, fields) {
-            if (error) throw error;
-            var upcomingeventdetails = results1;
-            console.log(upcomingeventdetails);
-
-            console.log(userdetails);
-
-            res.render("home", { x: userdetails, y: upcomingeventdetails });
-        });
-        connection2.end();
-    });
-    connection.end();
-
-
-
-
-
-
-
-
-
-    // Event end
+app.get("/", async (req, res, next) => {
+  try {
+    const user_response = await User.aggregate([
+      {
+        $lookup: {
+          from: "certificates",
+          localField: "_id",
+          foreignField: "user_id",
+          as: "certificates",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          count: { $size: "$certificates" },
+        },
+      },
+      {
+        $limit: 5,
+      },
+      {
+        $sort: { count: -1 },
+      },
+    ]);
+    const event_response = await Event.find().sort({ date: -1 }).limit(5);
+    res.render("home", { x: user_response, y: event_response });
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
-app.get('/admin/login', (req, res) => {
-    res.render('login');
+app.get("/admin/login", (req, res) => {
+  res.render("login");
 });
 
-app.post('/admin/login', urlencodedParser, (req, res) => {
-    const data = JSON.parse(JSON.stringify(req.body));
-    const connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_name
+app.put("/admin/create", urlencodedParser, async (req, res) => {
+  try {
+    await Admin.create({
+      username: "admin@gmail.com",
+      password: "admin",
+      name: "admin",
     });
-    var answer;
-    connection.query('SELECT * from a_admins', function (error, results, fields) {
-        if (error) throw error;
-        for (var i = 0; i < results.length; i++) {
-            if (results[i].username === data.email) {
-                if (results[i].password === data.password) {
-                    return res.redirect('/admin');
-                    console.log('yes');
-                    break;
-                }
-            } else {
-                console.log('No');
-                return res.redirect('/admin/login');
-            }
-        }
+    await Admin.create({
+      username: "root@gmail.com",
+      password: "root",
+      name: "root",
     });
-
-    connection.end();
+    res.send("Admin Created");
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
-app.get('/admin', (req, res) => {
-    res.render('admin');
-})
-
-
-
-app.get('/registeruser', (req, res) => {
-    res.render('registeruser');
+app.post("/admin/login", urlencodedParser, async (req, res) => {
+  const data = JSON.parse(JSON.stringify(req.body));
+  try {
+    const admin = await Admin.findOne({
+      username: data.email,
+    });
+    if (admin.password === data.password) {
+      return res.redirect("/admin");
+    }
+    res.redirect("/admin/login");
+  } catch (err) {
+    console.log(err.message);
+  }
 });
+
+app.get("/admin", (req, res) => {
+  res.render("admin");
+});
+
+app.get("/registeruser", (req, res) => {
+  res.render("registeruser");
+});
+
 const userupload = multer({
-    dest: 'images/avatar'
-    // 	add limit
-
+  dest: "images/avatar",
+  // 	add limit
 });
-app.post('/registeruser', userupload.single('avatar'), urlencodedParser, (req, res) => {
+
+app.post(
+  "/registeruser",
+  userupload.single("avatar"),
+  urlencodedParser,
+  async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
-    console.log(data);
+    try {
+      fs.rename(
+        "images/avatar/" + req.file.filename,
+        "images/avatar/" + req.file.filename + ".png",
+        function (err) {
+          if (err) console.log("ERROR: " + err);
+        }
+      );
 
-    fs.rename('images/avatar/' + req.file.filename, 'images/avatar/' + req.file.filename + '.png', function (
-        err
-    ) {
-        if (err) console.log('ERROR: ' + err);
-    });
+      console.log(req.file.originalname);
+      console.log(req.file.filename);
+      var badgeName = req.file.filename + ".png";
+      console.log(badgeName);
 
-    console.log(req.file.originalname);
-    console.log(req.file.filename);
-    var badgeName = req.file.filename + '.png';
-    console.log(badgeName);
-
-    var dataObject = {
-        name: data.name.toUpperCase(),
-        email: data.email.toLowerCase(),
+      await User.create({
+        name: data.name,
+        email: data.email,
         year: data.year,
         gr_no: data.gr_no,
         avatar: badgeName,
-    };
-    queries.insertToUsers(dataObject);
+      });
 
-    res.redirect('/admin');
+      res.redirect("/admin");
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+);
+
+app.get("/registerevents", (req, res) => {
+  res.render("registerevents");
 });
 
-app.get('/registerevents', (req, res) => {
-    res.render('registerevents');
-});
 const upload = multer({
-    dest: 'images/badges',
+  dest: "images/badges",
 });
 
-app.post('/registerevents', upload.single('badge'), urlencodedParser, async (req, res) => {
-    console.log('Helo');
+app.post(
+  "/registerevents",
+  upload.single("badge"),
+  urlencodedParser,
+  async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
-    console.log(data);
-    console.log(req.file.filename);
-    console.log(req.file.originalname);
-    fs.rename(
-        'images/badges/' + req.file.filename,
-        'images/badges/' + req.file.filename + '.png',
+    try {
+      console.log(req.file.filename);
+      console.log(req.file.originalname);
+      fs.rename(
+        "images/badges/" + req.file.filename,
+        "images/badges/" + req.file.filename + ".png",
         function (err) {
-            if (err) console.log('ERROR: ' + err);
+          if (err) console.log("ERROR: " + err);
         }
-    );
-    var badgeName = req.file.filename + '.png';
-    console.log(badgeName);
-    var dataObject = {
+      );
+      var badgeName = req.file.filename + ".png";
+      console.log(badgeName);
+
+      await Event.create({
         name: data.name,
         date: data.date,
         badges: badgeName,
         short_description: data.short_description,
-        description: data.description
-    };
-    queries.insertToEvents(dataObject);
+        description: data.description,
+      });
 
-    res.redirect('/admin');
+      res.redirect("/admin");
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+);
+
+app.get("/users", async (req, res) => {
+  try {
+    const user_response = await User.find();
+    res.render("users", { user: user_response });
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
-
-app.get('/users', (req, res) => {
-    var connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_name
-    });
-
-    var answer;
-    connection.query('SELECT * from u_users', function (error, results) {
-        if (error) {
-            throw error;
-        } else {
-            answer = results;
-            // console.log(results);
-        }
-        res.render('users', { user: answer });
-    });
-
-    connection.end();
-});
-
-app.post('/users', urlencodedParser, (req, res) => {
-    const data = JSON.parse(JSON.stringify(req.body));
-    console.log(data);
-
+app.post("/users", urlencodedParser, async (req, res) => {
+  const data = JSON.parse(JSON.stringify(req.body));
+  try {
     var userId = data.users;
-    var connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_name
+    const user_response = await User.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(userId),
+        },
+      },
+      {
+        $lookup: {
+          from: "certificates",
+          localField: "_id",
+          foreignField: "user_id",
+          as: "certificates",
+        },
+      },
+      {
+        $lookup: {
+          from: "events",
+          pipeline: [
+            {
+              $match: {
+                _id: {
+                  $in: mongoose.Types.ObjectId("$certificates.event_id"),
+                },
+              },
+            },
+          ],
+          as: "events",
+        },
+      },
+    ]);
+    res.render("users", {
+      x: user_response,
+      y: user_response[0].avatar,
+      z: user_response[0].username,
     });
-
-    var q =
-        'SELECT u.u_id as u_id, u.avatar as avatar,u.name as username,  e.name as event_name, e.badges as badge_link from u_users as u LEFT JOIN c_certificates as c on c.u_id = u.u_id LEFT JOIN e_events as e on e.e_id = c.e_id where u.u_id = ? ';
-
-    connection.query(q, userId, function (error, results, fields) {
-        if (error) {
-            console.log('User not found');
-        } else {
-            answer = results;
-            console.log(results);
-        }
-        res.render('users', { x: answer, y: answer[0].avatar, z: answer[0].username });
-    });
-
-
-    connection.end();
-
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
-app.get('/certificates', async (req, res) => {
-    var connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_name
-    });
-
-    var answer;
-    await connection.query('SELECT * from e_events', function (error, results, fields) {
-        if (error) throw error;
-        answer = results;
-        res.render('certificate', { events: answer });
-    });
-
-    connection.end();
-    // return answer;
+app.get("/certificates", async (req, res) => {
+  try {
+    const certificate_response = await Certificate.aggregate([
+      {
+        $lookup: {
+          from: "events",
+          localField: "event_id",
+          foreignField: "_id",
+          as: "events",
+        },
+      },
+    ]);
+    res.render("certificate", { events: certificate_response });
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
-app.post('/certificates', urlencodedParser, (req, res) => {
-    const data = JSON.parse(JSON.stringify(req.body));
-    console.log(data);
-
+app.post("/certificates", urlencodedParser, (req, res) => {
+  const data = JSON.parse(JSON.stringify(req.body));
+  try {
     var c = data.users;
 
     function replaceAll(str, find, replace) {
-        return str.replace(new RegExp(find, 'g'), replace);
+      return str.replace(new RegExp(find, "g"), replace);
     }
-    c = replaceAll(c, '\r', ' ');
-    c = replaceAll(c, '\r\n', ' ');
-    c = replaceAll(c, '\n', ' ');
+    c = replaceAll(c, "\r", " ");
+    c = replaceAll(c, "\r\n", " ");
+    c = replaceAll(c, "\n", " ");
     // console.log(replaceAll('adsdasdasdasd', 'as', '=='));
 
-    var e = c.split(' ');
+    var e = c.split(" ");
     var finalarr = e.filter((ele) => {
-        return ele != '';
+      return ele != "";
     });
     console.log(finalarr);
 
     var arr = [];
     for (var i = 0; i < finalarr.length; i++) {
-        arr.push([finalarr[i], data.events]);
+      arr.push([finalarr[i], data.events]);
     }
 
     console.log(arr);
 
     for (var i = 0; i < arr.length; i++) {
-        console.log('hello');
-        queries.sendCertificates(arr[i]);
+      console.log("hello");
+      queries.sendCertificates(arr[i]);
     }
-    console.log('executed');
-    res.redirect('/admin');
+    console.log("executed");
+    res.redirect("/admin");
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 app.listen(port, (req, res) => {
-    console.log('Server is listening on port' + port);
+  console.log("Server is listening on port" + port);
 });

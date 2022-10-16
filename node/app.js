@@ -215,40 +215,36 @@ app.post("/users", urlencodedParser, async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
   try {
     var userId = data.users;
-    const user_response = await User.aggregate([
+    const certificate_response = await Certificate.aggregate([
       {
         $match: {
-          _id: mongoose.Types.ObjectId(userId),
+          user_id: mongoose.Types.ObjectId(userId),
         },
       },
       {
         $lookup: {
-          from: "certificates",
-          localField: "_id",
-          foreignField: "user_id",
-          as: "certificates",
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "user",
         },
+      },
+      {
+        $unwind: "$user",
       },
       {
         $lookup: {
           from: "events",
-          pipeline: [
-            {
-              $match: {
-                _id: {
-                  $in: mongoose.Types.ObjectId("$certificates.event_id"),
-                },
-              },
-            },
-          ],
+          localField: "event_id",
+          foreignField: "_id",
           as: "events",
         },
       },
     ]);
     res.render("users", {
       x: user_response,
-      y: user_response[0].avatar,
-      z: user_response[0].username,
+      y: user_response[0].user.avatar,
+      z: user_response[0].user.name,
     });
   } catch (err) {
     console.log(err.message);

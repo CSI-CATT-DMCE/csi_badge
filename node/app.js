@@ -15,11 +15,10 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
 const fs = require("fs");
 const mongoose = require("mongoose");
-const Admin = require("./schema/AdminSchema");
-const User = require("./schema/UserSchema");
-const Certificate = require("./schema/CertificateSchema");
-const Event = require("./schema/EventSchema");
-const async = require("hbs/lib/async");
+const Admin = require("../schema/AdminSchema");
+const User = require("../schema/UserSchema");
+const Certificate = require("../schema/CertificateSchema");
+const Event = require("../schema/EventSchema");
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());

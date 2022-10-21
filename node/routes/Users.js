@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const User = require("../../schema/UserSchema");
+const Certificate = require("../../schema/CertificateSchema");
 const fs = require("fs");
 
 const userupload = multer({
@@ -84,6 +85,19 @@ router.post("/users", async (req, res) => {
       y: user_response[0].user.avatar,
       z: user_response[0].user.name,
     });
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+router.delete("/admin", async (req, res) => {
+  const data = JSON.parse(JSON.stringify(req.body));
+  try {
+    var userId = data.users;
+    console.log(userId);
+    await User.deleteOne({ _id: userId });
+    await Certificate.deleteMany({ user_id: userId });
+    res.render("admin");
   } catch (err) {
     console.log(err.message);
   }

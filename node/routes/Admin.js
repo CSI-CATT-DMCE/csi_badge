@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Admin = require("../../schema/AdminSchema");
+const User = require("../../schema/UserSchema");
 
-router.get("/admin", (req, res) => {
-  res.render("admin");
+router.get("/admin", async (req, res) => {
+  const user_response = await User.find();
+  res.render("admin", { users: user_response });
 });
 
 router.get("/admin/login", (req, res) => {

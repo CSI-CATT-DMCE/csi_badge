@@ -68,6 +68,7 @@ app.get("/", async (req, res, next) => {
       },
     ]);
     const event_response = await Event.find().sort({ date: -1 }).limit(5);
+    console.log(event_response);
     res.render("home", { x: user_response, y: event_response });
   } catch (err) {
     console.log(err.message);
